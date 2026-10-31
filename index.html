@@ -61,7 +61,7 @@ nav .on{color:var(--p);font-weight:700}
 <div id="app"></div><div id="sh"></div><div id="tt"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
-const SB_URL='YOUR-PROJECT-URL',SB_KEY='YOUR-ANON-KEY';
+const SB_URL='https://whjyruxlcxgwivyuntub.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoanlydXhsY3hnd2l2eXVudHViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzODY3NDIsImV4cCI6MjEwODk2Mjc0Mn0.5Mb3qEyfQ5bIFwOl6YvltfSPjdpuKYtya9ENtkbD-6k';
 const ok=!SB_URL.includes('YOUR')&&window.supabase;
 const sb=ok?supabase.createClient(SB_URL,SB_KEY):null;
 const $=s=>document.querySelector(s);
