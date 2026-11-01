@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7C3AED">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<title>Batsho</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+:root{--p:#7C3AED;--k:#22B8F5;--bg:#F8F7FF;--c:#fff;--t:#1F2937;--m:#6B7280;--l:#EDE9FE}
+@media(prefers-color-scheme:dark){:root{--bg:#14121f;--c:#1e1b30;--t:#f3f4f6;--m:#9CA3AF;--l:#2e2850}}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:Tajawal,system-ui,sans-serif;background:var(--bg);color:var(--t);font-size:15px}
+#app{height:100%;display:flex;flex-direction:column;max-width:560px;margin:auto;padding-top:env(safe-area-inset-top,0px)}
+button,input{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+header{padding:14px 18px 8px;display:flex;align-items:center;gap:10px}
+h1{font-size:24px;font-weight:800}
+main{flex:1;overflow-y:auto;padding:4px 14px 16px}
+nav{display:flex;background:var(--c);border-top:1px solid var(--l);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;padding:9px 0 7px;font-size:11px;color:var(--m);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button i{font-style:normal;font-size:20px}
+nav .on{color:var(--p);font-weight:700}
+.row{display:flex;align-items:center;gap:12px;background:var(--c);border-radius:16px;padding:12px;margin-bottom:10px;width:100%;text-align:start}
+.row .tx{flex:1;min-width:0}
+.row b{display:block}.row small{color:var(--m);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;flex:none}
+.btn{background:linear-gradient(135deg,var(--k),var(--p));color:#fff;border-radius:12px;padding:10px 18px;font-weight:700}
+.sm{padding:7px 14px;font-size:13px}
+.dots{padding:6px 10px;color:var(--m);font-size:20px}
+.tag{background:var(--l);color:var(--p);border-radius:20px;padding:2px 10px;font-size:12px}
+.empty{text-align:center;color:var(--m);padding:60px 20px;line-height:1.9}
+.login{margin:auto;padding:28px;text-align:center;display:flex;flex-direction:column;gap:14px;width:100%}
+.logo{width:96px;height:96px;margin:auto;border-radius:24px;display:block}
+.login input:not([type=checkbox]){background:var(--c);border-radius:12px;padding:13px;text-align:center;border:1px solid var(--l)}
+.chk{display:flex;gap:8px;text-align:start;font-size:13px;color:var(--m);align-items:flex-start}
+.chk input{margin-top:3px;accent-color:var(--p)}
+.top{display:flex;align-items:center;gap:8px;padding:10px 8px;background:var(--c);border-bottom:1px solid var(--l)}
+.top b{flex:1}.top button{padding:6px 10px;font-size:20px}
+#ml{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:78%;padding:9px 13px;border-radius:16px;background:var(--c);align-self:flex-end;border-end-end-radius:4px;line-height:1.6}
+.m small{display:block;color:var(--p);font-weight:700;font-size:12px}
+.m.me{background:var(--p);color:#fff;align-self:flex-start;border-end-end-radius:16px;border-end-start-radius:4px}
+.send{display:flex;gap:8px;padding:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--c);border-top:1px solid var(--l)}
+.send input{flex:1;background:var(--bg);border-radius:22px;padding:10px 16px;cursor:text}
+.card{background:var(--c);border-radius:16px;padding:16px;margin-bottom:12px;text-align:center}
+.card .av{margin:0 auto 8px;width:70px;height:70px;font-size:30px}
+.item{display:block;width:100%;text-align:start;background:var(--c);padding:14px;border-radius:14px;margin-bottom:8px}
+.item.red{color:#DC2626}
+.legal{padding:18px;line-height:2;overflow-y:auto;flex:1}
+#sh .bd{position:fixed;inset:0;background:#0006;z-index:5}
+#sh .sh{position:fixed;inset:auto 0 0;z-index:6;background:var(--c);border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;max-width:560px;margin:auto}
+#sh .sh button{padding:13px;border-radius:12px;background:var(--bg)}
+#tt{position:fixed;bottom:90px;inset-inline:0;margin:auto;width:max-content;max-width:86%;background:#111827;color:#fff;padding:10px 18px;border-radius:22px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
+#tt.on{opacity:1}
+.login .two{display:flex;gap:8px}.login .two button{flex:1}.login .alt{background:var(--l);color:var(--p)}.warn{background:#FEF3C7;color:#92400E;border-radius:12px;padding:10px;font-size:13px}.btn.g{background:#fff;color:#1F2937;border:1px solid var(--l);display:flex;align-items:center;justify-content:center;gap:10px;padding:13px}.login summary{color:var(--m);font-size:13px;cursor:pointer}.login details input,.login details .two{margin-top:10px;width:100%}img.av{object-fit:cover}a.item{text-decoration:none;color:inherit}.chk a{color:var(--p)}.form{padding:18px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}.form label{font-size:13px;color:var(--m)}.form input:not([hidden]){background:var(--c);border-radius:12px;padding:13px;border:1px solid var(--l);cursor:text;width:100%}.vt{display:flex;align-items:center;gap:8px;padding:10px 12px}.cx{width:42px;height:42px;border-radius:50%;background:var(--c);box-shadow:0 1px 4px #0002;font-size:17px}.live{background:#EF4444;color:#fff;border-radius:20px;padding:6px 12px;font-weight:700;font-size:13px}.cnt{background:#374151;color:#fff;border-radius:20px;padding:6px 12px;font-size:13px}.seats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px}.sc{position:relative;display:flex;align-items:center;gap:10px;background:var(--c);border-radius:20px;padding:12px;box-shadow:0 2px 8px #0001;text-align:start}.sc .av{width:52px;height:52px}.sc small{display:block;color:var(--m)}.sc.em{justify-content:center;color:var(--m);border:2px dashed var(--l);box-shadow:none;min-height:78px}.gd{position:absolute;bottom:12px;inset-inline-start:52px;width:12px;height:12px;border-radius:50%;background:#22C55E;border:2px solid var(--c)}.aud{display:flex;flex-wrap:wrap;gap:8px;padding:12px;justify-content:center}.aud .av{width:36px;height:36px;font-size:14px}#ml .m{border-radius:22px}.lvbox{flex:1;background:#000;margin:0 12px 8px;border-radius:20px;overflow:hidden;min-height:30vh;position:relative}.lvbox video{width:100%;height:100%;object-fit:cover}#lc{height:24vh;overflow-y:auto;padding:6px 14px;display:flex;flex-direction:column;gap:4px}.lm{background:var(--c);border-radius:16px;padding:6px 12px;align-self:flex-start;max-width:90%;font-size:14px}.lm b{color:var(--p)}
+/* === Discover V2 - بدون اشعارات - كوينز ومحاولات في الهيدر === */
+.discover-page{flex:1;display:flex;flex-direction:column;gap:12px;min-height:0}
+.header-counters{display:flex;align-items:center;gap:8px}
+.coins-header{display:flex;align-items:center;gap:6px;background:#FFFBEB;border:1.5px solid #FDE68A;color:#92400E;padding:7px 14px;border-radius:22px;font-weight:800;font-size:13px;box-shadow:0 2px 6px rgba(251,191,36,0.15)}
+.coins-header b{color:#92400E}
+.attempts-header{width:38px;height:38px;border-radius:50%;background:var(--c);border:1.5px solid var(--l);display:grid;place-items:center;font-weight:800;font-size:15px;color:var(--t);box-shadow:0 2px 6px #0000000a;position:relative}
+.attempts-header::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--l);opacity:.6}
+.filter-bar{display:flex;align-items:center;gap:10px;padding:8px 0 10px;position:relative;z-index:2;margin-top:2px}
+.filter-circle{width:42px;height:42px;background:#f3f4f6;border-radius:50%;display:grid;place-items:center;flex:none;border:1px solid #E5E7EB;color:#6B7280;box-shadow:0 1px 2px #0000000a}
+.filter-circle svg{width:20px;height:20px}
+.chips-wrap{flex:1;overflow:hidden}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;padding:8px 16px;border-radius:22px;background:var(--c);border:1.5px solid var(--l);font-size:13px;font-weight:500;color:var(--m);transition:all .22s;cursor:pointer;flex:none}
+.chip.active{background:var(--t);color:#fff;border-color:var(--t);box-shadow:0 4px 10px #0002}
+.stack-area{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:520px;padding:10px 0 14px}
+.card-stack{width:100%;max-width:340px;aspect-ratio:3/4.4;position:relative}
+.stack-card{position:absolute;inset:0;border-radius:26px;overflow:hidden;background:var(--c);box-shadow:0 18px 40px rgba(15,52,67,0.18),0 4px 12px rgba(0,0,0,0.08);transform-origin:center bottom;will-change:transform,opacity;touch-action:none;user-select:none}
+.stack-card.behind-1{transform:scale(.94) translateY(14px);opacity:.75;z-index:1}
+.stack-card.behind-2{transform:scale(.88) translateY(28px);opacity:.45;z-index:0}
+.stack-card.front{z-index:3}
+.stack-card.dragging{transition:none !important}
+.stack-card.animating{transition:transform .42s cubic-bezier(.22,.8,.2,1), opacity .42s}
+.card-img{width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#EDE9FE,#DBEAFE)}
+.card-badge{position:absolute;top:14px;right:14px;background:#22C55E;color:#fff;padding:6px 12px;border-radius:20px;font-size:11.5px;font-weight:800;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(34,197,94,.35);z-index:4}
+.card-badge .dot{width:8px;height:8px;background:#fff;border-radius:50%;box-shadow:0 0 0 3px rgba(255,255,255,.35);animation:pulseDot 1.6s infinite}
+@keyframes pulseDot{0%,100%{transform:scale(1)}50%{transform:scale(.85)}}
+.card-overlay{position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(to top, #0f3443 0%, rgba(15,52,67,0.92) 18%, rgba(15,52,67,0.78) 42%, rgba(15,52,67,0) 100%);padding:18px 16px 16px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;color:#fff;z-index:3}
+.overlay-content{display:flex;flex-direction:column;gap:7px}
+.o-tags{display:flex;gap:6px;flex-wrap:wrap}
+.o-tag{background:rgba(255,255,255,0.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.22);padding:4px 10px;border-radius:18px;font-size:11px;font-weight:600;color:#fff}
+.o-bio{font-size:13px;line-height:1.45;opacity:.92;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:94%}
+.o-pill{align-self:flex-start;background:rgba(124,58,237,0.88);border:1px solid rgba(255,255,255,0.22);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.o-loc{font-size:13px;opacity:.9;display:flex;align-items:center;gap:4px;font-weight:500}
+.o-loc svg{width:14px;height:14px}
+.o-name{font-size:23px;font-weight:800;line-height:1.15;text-shadow:0 2px 8px rgba(0,0,0,.25)}
+.swipe-hint{position:absolute;top:46%;inset-inline:0;display:flex;justify-content:space-between;padding:0 18px;pointer-events:none;z-index:5;opacity:0;transition:opacity .18s}
+.swipe-hint.show{opacity:1}
+.hint-badge{padding:8px 14px;border-radius:20px;font-weight:800;font-size:13px;border:2px solid}
+.hint-like{background:rgba(34,197,94,0.12);color:#22C55E;border-color:#22C55E;transform:rotate(8deg)}
+.hint-skip{background:rgba(239,68,68,0.12);color:#EF4444;border-color:#EF4444;transform:rotate(-8deg)}
+.actions{display:flex;justify-content:center;align-items:flex-end;gap:24px;padding:14px 0 8px;margin-top:4px}
+.act-btn{display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:0;cursor:pointer}
+.act-circle{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:26px;transition:transform .14s, box-shadow .14s;position:relative}
+.act-circle:active{transform:scale(.92)}
+.act-skip{background:#fff;border:1.8px solid #E5E7EB;color:#9CA3AF;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.act-chat{background:#F5F3FF;border:1.8px solid #DDD6FE;color:#7C3AED;box-shadow:0 4px 14px rgba(124,58,237,.12)}
+.act-like{background:linear-gradient(135deg,var(--k),var(--p));color:#fff;box-shadow:0 10px 22px rgba(124,58,237,.38),0 0 0 7px rgba(124,58,237,.14)}
+.act-label{font-size:12px;font-weight:600;color:var(--m)}
+.act-like + .act-label{color:var(--p);font-weight:700}
+.footer-note{text-align:center;font-size:11px;color:#9CA3AF;padding:2px 0 8px;letter-spacing:.2px;line-height:1.5}
+.no-more{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px 20px;text-align:center;background:var(--c);border-radius:24px;box-shadow:0 8px 24px #0001}
+
+</style>
+</head>
+<body>
+<div id="app"></div><div id="vaud" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden"></div><div id="sh"></div><div id="tt"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script defer src="zego.js" onerror="this.remove()"></script>
+<script>
+const SB_URL='https://whjyruxlcxgwivyuntub.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoanlydXhsY3hnd2l2eXVudHViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzODY3NDIsImV4cCI6MjEwODk2Mjc0Mn0.5Mb3qEyfQ5bIFwOl6YvltfSPjdpuKYtya9ENtkbD-6k';
+const ok=!SB_URL.includes('YOUR')&&window.supabase;
+const sb=ok?supabase.createClient(SB_URL,SB_KEY):null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const T={discover:'اكتشاف',rooms:'الغرف',live:'مباشر',msgs:'الرسائل',me:'ملفي'},IC={discover:'🔍',rooms:'🏠',live:'🔴',msgs:'💬',me:'👤'};
+let S={me:null,tab:'discover',view:null,people:[],rooms:[],blocked:[],msgs:[],convos:{},load:true,lives:[],isModel:0,mreq:null};
+const seen=new Set();
+const nm=id=>S.me&&id==S.me.id?S.me.name:(S.people.find(x=>x.id==id)||{name:'مستخدم'}).name;
+const av=p=>p.avatar_url?`<img class="av" src="${esc(p.avatar_url)}" alt="">`:`<span class="av" style="background:${['#7C3AED','#22B8F5','#6366F1','#14B8A6','#F59E0B'][p.name.charCodeAt(0)%5]}">${esc(p.name[0])}</span>`;
+const pr=id=>S.me&&id==S.me.id?S.me:S.people.find(x=>x.id==id)||{name:'مستخدم'};
+function toast(t){const e=$('#tt');e.textContent=t;e.className='on';setTimeout(()=>e.className='',2500)}
+const msgHtml=(m,room)=>`<div class="m ${m.sender==S.me.id?'me':''}">${room&&m.sender!=S.me.id?`<small>${esc(nm(m.sender))}</small>`:''}${esc(m.content)}</div>`;
+const login=()=>`<div class="login"><img class="logo" src="icon-192.png" alt="Batsho"><h1>أهلاً بك في Batsho</h1>${ok?'':'<div class="warn">'+(SB_URL.includes('YOUR')?'أضف رابط Supabase والمفتاح في أعلى ملف index.html':'تعذر تحميل مكتبة Supabase. تأكد من الإنترنت وأعد فتح الصفحة')+'</div>'}<label class="chk"><input type="checkbox" id="age"><span>عمري 18 سنة أو أكثر، وأوافق على <a href="terms.html" target="_blank">الشروط</a> و<a href="privacy.html" target="_blank">سياسة الخصوصية</a></span></label><button class="btn g" data-a="google"><b style="color:#4285F4;font-size:18px">G</b>المتابعة عبر Google</button><details><summary>الدخول بالبريد</summary><input type="text" id="nm" placeholder="اسمك المستعار (للحساب الجديد)" maxlength="20"><input type="email" id="em" placeholder="البريد الإلكتروني" dir="ltr"><input type="password" id="pw" placeholder="كلمة المرور (6 أحرف على الأقل)" dir="ltr"><div class="two"><button class="btn" data-a="login">دخول</button><button class="btn alt" data-a="signup">حساب جديد</button></div></details></div>`;
+const tabs={
+discover:()=>`<div class="discover-page" id="discoverRoot"></div>`,
+rooms:()=>S.rooms.map(r=>`<div class="row"><button class="row" style="margin:0;padding:0;background:none" data-a="open" data-k="r:${r.id}">${av(r)}<div class="tx"><b>${esc(r.name)}</b></div><span class="tag">${esc(r.tag||'')}</span></button><button class="dots" data-a="menu" data-k="r:${r.id}">⋮</button></div>`).join(''),
+live:()=>S.lives.map(l=>`<button class="row" data-a="watch" data-id="${l.id}">${av(l.profiles||{name:'؟'})}<div class="tx"><b>${esc(l.title)}</b><small>${esc((l.profiles||{}).name||'')}</small></div><span class="live" style="font-size:11px;padding:3px 8px">LIVE</span></button>`).join('')||'<div class="empty">لا توجد بثوث مباشرة الآن</div>',
+msgs:()=>{const k=Object.keys(S.convos).filter(id=>!S.blocked.includes(id)).sort((a,b)=>S.convos[b].at.localeCompare(S.convos[a].at));return k.length?k.map(id=>`<button class="row" data-a="open" data-k="d:${id}">${av(pr(id))}<div class="tx"><b>${esc(nm(id))}</b><small>${esc(S.convos[id].t)}</small></div></button>`).join(''):`<div class="empty">ما عندك محادثات بعد.<br><br><button class="btn sm" data-a="tab" data-t="discover">اكتشف الناس</button></div>`},
+me:()=>`<div class="card">${av(S.me)}<b style="font-size:18px">${esc(S.me.name)}</b><small style="display:block;color:var(--m)">${esc(S.me.city||'')} ${esc(S.me.bio||'حساب +18')}</small></div><button class="item" data-a="edit">تعديل ملفي</button>${mbtn()}<a class="item" href="privacy.html">سياسة الخصوصية</a><a class="item" href="terms.html">الشروط والأحكام</a><button class="item" data-a="logout">تسجيل الخروج</button><button class="item red" data-a="del">حذف حسابي وبياناتي</button>`};
+function chat(k){const room=k[0]=='r',id=k.slice(2),o=room?S.rooms.find(x=>x.id==id):S.people.find(x=>x.id==id),n=o?o.name:'محادثة',L=S.msgs.filter(m=>!S.blocked.includes(m.sender));
+if(room)return roomView(L);
+return`<div class="top"><button data-a="back">➜</button><b>${esc(n)}</b><button data-a="menu" data-k="${room?'r':'u'}:${id}">⋮</button></div><div id="ml">${L.length?L.map(m=>msgHtml(m,room)).join(''):'<div class="empty">اكتب أول رسالة 👋</div>'}</div><div class="send"><input id="in" placeholder="اكتب رسالة..." maxlength="500" autocomplete="off"><button class="btn sm" data-a="send">إرسال</button></div>`}
+const legal=()=>`<div class="top"><button data-a="back">➜</button><b>الشروط والخصوصية</b></div><div class="legal"><p><b>ملاحظة:</b> نص مؤقت. ضع هنا الشروط وسياسة الخصوصية الفعلية، وانشرها أيضًا على رابط عام لأن Google Play يطلبه.</p></div>`;
+function edit(){const d=S.draft||S.me;return`<div class="top"><button data-a="back">➜</button><b>تعديل ملفي</b></div><div class="form"><div class="card">${av(S.me)}<button class="btn sm" data-a="pick">تغيير الصورة</button><input type="file" id="af" accept="image/*" hidden></div><label>الاسم المستعار</label><input id="en" maxlength="20" value="${esc(d.name||'')}"><label>المدينة</label><input id="ec" maxlength="30" value="${esc(d.city||'')}"><label>نبذة عنك</label><input id="eb" maxlength="120" value="${esc(d.bio||'')}"><button class="btn" data-a="save">حفظ</button></div>`}
+function render(){const a=$('#app');
+if(S.load){a.innerHTML='<div class="empty" style="margin:auto">جارٍ التحميل...</div>';return}
+if(!S.me){a.innerHTML=login();return}
+if(S.view){a.innerHTML=S.view=='legal'?legal():S.view=='edit'?edit():S.view=='mreq'?mreqV():S.view=='mpanel'?mpanel():S.view=='live'?liveV():chat(S.view);const l=$('#ml');if(l)l.scrollTop=l.scrollHeight;paintV();return}
+a.innerHTML=`<header><h1>${T[S.tab]}</h1></header><main>${tabs[S.tab]()}</main><nav>${Object.keys(T).map(t=>`<button class="${t==S.tab?'on':''}" data-a="tab" data-t="${t}"><i>${IC[t]}</i>${T[t]}</button>`).join('')}</nav>`}
+
+const COUNTRIES=['الكل','السعودية','مصر','اليمن','الإمارات'];
+const STATUSES=['يبحث عن علاقة جدية','صداقة محترمة','دردشة وتعارف','يبحث عن الحب','تعارف جاد'];
+const TAGS_POOL=['سفر','قهوة','رياضة','أفلام','كتب','موسيقى','طبخ','تصوير','ألعاب','فن'];
+let D={activeCountry:'الكل',index:0,attempts:15,coins:120};
+
+function enrichDiscover(p){
+  if(!p._enriched){
+    p.country = p.country || (p.city && COUNTRIES.find(c=>p.city.includes(c)) ) || ['اليمن','السعودية','الإمارات','مصر'][p.name.charCodeAt(0)%4];
+    p.status = p.status || STATUSES[p.name.charCodeAt(0)%STATUSES.length];
+    p.tags = p.tags || [TAGS_POOL[p.name.charCodeAt(0)%TAGS_POOL.length], TAGS_POOL[(p.name.charCodeAt(0)+2)%TAGS_POOL.length]];
+    p.online = p.online!==undefined ? p.online : Math.random()>0.3;
+    p.bioLong = p.bio || 'أحب التعرف على أشخاص جدد ومشاركة الاهتمامات الجميلة';
+    p._enriched=true;
+  }
+  return p;
+}
+function filteredPeopleDiscover(){
+  const list=S.people.filter(p=>!S.blocked.includes(p.id)).map(enrichDiscover);
+  if(D.activeCountry==='الكل') return list;
+  return list.filter(p=>p.country===D.activeCountry || (p.city||'').includes(D.activeCountry));
+}
+function discoverHTML(){
+  const list=filteredPeopleDiscover();
+  const remaining=Math.max(0, list.length - D.index);
+  return `<div class="discover-page">
+    <div class="filter-bar">
+      <button class="filter-circle" data-a="filter-open" aria-label="فلتر"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg></button>
+      <div class="chips-wrap"><div class="chips" id="chips">${COUNTRIES.map(c=>`<button class="chip ${D.activeCountry===c?'active':''}" data-a="country" data-c="${c}">${esc(c)}</button>`).join('')}</div></div>
+    </div>
+    <div class="stack-area" id="stackArea">${remaining<=0?`<div class="no-more"><div style="font-size:42px">✨</div><b>انتهى الاستكشاف</b><small style="color:var(--m)">جرب فلتر آخر</small><button class="btn sm" data-a="reset-discover">إعادة التعيين</button></div>`:`<div class="card-stack" id="cardStack"></div>`}</div>
+    ${remaining>0?`<div class="actions"><button class="act-btn" data-a="act-skip"><span class="act-circle act-skip">✕</span><span class="act-label">تخطي</span></button><button class="act-btn" data-a="act-chat"><span class="act-circle act-chat">💬</span><span class="act-label">دردشة</span></button><button class="act-btn" data-a="act-like"><span class="act-circle act-like">♥</span><span class="act-label">إعجاب</span></button></div><div class="footer-note">• اكتشف فقط للأشخاص • تواصل عبر الدردشة •</div>`:''}
+  </div>`;
+}
+function cardHTMLDiscover(p,pos){
+  const cls=pos===0?'front':pos===1?'behind-1':'behind-2';
+  const onlineBadge=p.online?`<div class="card-badge"><span class="dot"></span> متصل الآن</div>`:'';
+  return `<div class="stack-card ${cls} ${pos===0?'animating':''}" data-id="${p.id}" style="z-index:${10-pos}">
+    ${p.avatar_url?`<img class="card-img" src="${esc(p.avatar_url)}" alt="">`:`<div class="card-img" style="display:grid;place-items:center;font-size:60px;background:linear-gradient(135deg,var(--l),#DBEAFE)">${esc(p.name[0])}</div>`}
+    ${onlineBadge}
+    <div class="card-overlay"><div class="overlay-content">
+      <div class="o-tags">${(p.tags||[]).slice(0,3).map(t=>`<span class="o-tag">#${esc(t)}</span>`).join('')}</div>
+      <div class="o-bio">${esc(p.bioLong||p.bio||'نبذة تعريفية يختارها المستخدم')}</div>
+      <div class="o-pill">${esc(p.status)}</div>
+      <div class="o-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg> ${esc(p.city||'')}${p.country?'، '+esc(p.country):''}</div>
+      <div class="o-name">${esc(p.name)}، ${22 + (p.name.charCodeAt(0)%8)}</div>
+    </div></div>
+    <div class="swipe-hint"><span class="hint-badge hint-skip">تخطي</span><span class="hint-badge hint-like">إعجاب</span></div>
+  </div>`;
+}
+function renderStackDiscover(){
+  const stackEl=document.getElementById('cardStack');
+  if(!stackEl) return;
+  const list=filteredPeopleDiscover();
+  const slice=list.slice(D.index, D.index+3);
+  if(slice.length===0){
+    const area=document.getElementById('stackArea');
+    if(area) area.innerHTML=`<div class="no-more"><div style="font-size:42px">✨</div><b>انتهى الاستكشاف</b><small style="color:var(--m)">جرب فلتر آخر</small><button class="btn sm" data-a="reset-discover">إعادة التعيين</button></div>`;
+    return;
+  }
+  stackEl.innerHTML=slice.map((p,i)=>cardHTMLDiscover(p,i)).join('');
+  attachDragDiscover();
+}
+function updateAttemptsDiscover(){const att=document.getElementById('attCount'); if(att) att.textContent=D.attempts; const coinHeader=document.querySelector('.coins-header b'); if(coinHeader) coinHeader.textContent=D.coins; }
+function attachDragDiscover(){
+  const front=document.querySelector('.stack-card.front'); if(!front) return;
+  let startX=0,dx=0,isDrag=false;
+  const hint=front.querySelector('.swipe-hint');
+  front.addEventListener('pointerdown', e=>{isDrag=true; front.setPointerCapture(e.pointerId); startX=e.clientX; front.classList.add('dragging'); front.classList.remove('animating');});
+  front.addEventListener('pointermove', e=>{if(!isDrag) return; dx=e.clientX-startX; if(Math.abs(dx)<3) return; const rot=dx*0.08; front.style.transform=`translate(${dx}px, ${Math.abs(dx)*0.1}px) rotate(${rot}deg)`; if(hint){hint.classList.add('show'); hint.style.opacity=Math.min(1, Math.abs(dx)/80);} });
+  const endDrag=()=>{if(!isDrag) return; isDrag=false; front.classList.remove('dragging'); front.classList.add('animating'); if(Math.abs(dx)>110){ if(dx>0) doLikeDiscover(); else doSkipDiscover(); } else { front.style.transform=''; if(hint) hint.classList.remove('show'); } dx=0; };
+  front.addEventListener('pointerup', endDrag); front.addEventListener('pointercancel', endDrag);
+  front.addEventListener('click', ()=>{ if(Math.abs(dx)>10) return; if(D.attempts>0){ D.attempts--; updateAttemptsDiscover(); toast('فتح الملف - خصم محاولة'); } });
+}
+function doSkipDiscover(){const front=document.querySelector('.stack-card.front'); if(!front) return; front.style.transform='translate(-460px, 30px) rotate(-22deg)'; front.style.opacity='0'; if(D.attempts>0){D.attempts--; updateAttemptsDiscover();} setTimeout(()=>{D.index++; if(document.getElementById('cardStack')) renderStackDiscover(); else { const root=document.getElementById('discoverRoot'); if(root){ root.innerHTML=discoverHTML(); setTimeout(renderStackDiscover,30);} } if(D.attempts<=0) toast('انتهت محاولاتك');},300);}
+function doLikeDiscover(){const front=document.querySelector('.stack-card.front'); if(!front) return; front.style.transform='translate(460px, 30px) rotate(22deg)'; front.style.opacity='0'; if(D.attempts>0){D.attempts--; D.coins+=2; updateAttemptsDiscover(); toast('إعجاب 💜');} setTimeout(()=>{D.index++; if(document.getElementById('cardStack')) renderStackDiscover(); else { const root=document.getElementById('discoverRoot'); if(root){ root.innerHTML=discoverHTML(); setTimeout(renderStackDiscover,30);} }},300);}
+function doChatDiscover(){const list=filteredPeopleDiscover(); const p=list[D.index]; if(!p) return; if(D.attempts>0){D.attempts--; updateAttemptsDiscover();} openChat('d:'+p.id);}
+
+const _origRender=render;
+render=function(){
+  const a=$('#app');
+  if(S.load){a.innerHTML='<div class="empty" style="margin:auto">جارٍ التحميل...</div>';return}
+  if(!S.me){a.innerHTML=login();return}
+  if(S.view){a.innerHTML=S.view=='legal'?legal():S.view=='edit'?edit():S.view=='mreq'?mreqV():S.view=='mpanel'?mpanel():S.view=='live'?liveV():chat(S.view);const l=$('#ml');if(l)l.scrollTop=l.scrollHeight;paintV();return}
+  if(S.tab==='discover'){
+    a.innerHTML=`<header style="padding:12px 16px 6px;display:flex;align-items:center;justify-content:space-between"><h1 style="font-size:22px">${T[S.tab]}</h1><div class="header-counters"><div class="attempts-header" id="attCount">${D.attempts}</div><div class="coins-header">🪙 <b>${D.coins}</b> كوينز</div></div></header><main>${discoverHTML()}</main><nav>${Object.keys(T).map(t=>`<button class="${t==S.tab?'on':''}" data-a="tab" data-t="${t}"><i>${IC[t]}</i>${T[t]}</button>`).join('')}</nav>`;
+    setTimeout(renderStackDiscover,40);
+    return;
+  }
+  a.innerHTML=`<header><h1>${T[S.tab]}</h1></header><main>${tabs[S.tab]()}</main><nav>${Object.keys(T).map(t=>`<button class="${t==S.tab?'on':''}" data-a="tab" data-t="${t}"><i>${IC[t]}</i>${T[t]}</button>`).join('')}</nav>`;
+};
+
+// extend click handler for new actions (will be handled in existing listener below, we patch it via extra cases)
+const _oldClick = document._discoverPatched;
+if(!document._discoverPatched){
+  document.addEventListener('click', e=>{
+    const b=e.target.closest('[data-a]'); if(!b) return;
+    const d=b.dataset;
+    if(d.a==='country'){ D.activeCountry=d.c; D.index=0; const root=document.getElementById('discoverRoot'); if(root){ root.innerHTML=discoverHTML(); setTimeout(renderStackDiscover,30);} else { S.tab='discover'; _origRender(); } }
+    if(d.a==='act-skip') doSkipDiscover();
+    if(d.a==='act-like') doLikeDiscover();
+    if(d.a==='act-chat') doChatDiscover();
+    if(d.a==='reset-discover'){ D.index=0; D.activeCountry='الكل'; const root=document.getElementById('discoverRoot'); if(root){ root.innerHTML=discoverHTML(); setTimeout(renderStackDiscover,30);} else render(); }
+    if(d.a==='filter-open'){ toast('فلتر متقدم: العمر والاهتمامات قريبًا'); }
+  });
+  document._discoverPatched=true;
+}
+
+async function boot(){if(!sb){S.load=false;return render()}
+const{data:{session}}=await sb.auth.getSession();
+if(!session){S.me=null;S.load=false;return render()}
+const u=session.user,um=u.user_metadata||{};let nn=String(um.name||um.full_name||'').trim().slice(0,20);if(nn.length<2)nn='مستخدم';let{data:p}=await sb.from('profiles').select('*').eq('id',u.id).maybeSingle();
+if(!p){const r=await sb.from('profiles').insert({id:u.id,name:nn}).select().single();p=r.data}
+if(!p){toast('تعذر تجهيز حسابك');await sb.auth.signOut();S.load=false;return render()}
+S.me=p;
+const[a,b,c,mm,mr]=await Promise.all([sb.from('profiles').select('*').neq('id',p.id).limit(100),sb.from('rooms').select('*').order('id'),sb.from('blocks').select('blocked'),sb.from('models').select('user_id').eq('user_id',p.id).maybeSingle(),sb.from('model_requests').select('*').order('id',{ascending:false}).limit(1)]);
+S.people=a.data||[];S.isModel=!!mm.data;S.mreq=(mr.data||[])[0]||null;S.rooms=b.data||[];S.blocked=(c.data||[]).map(x=>x.blocked);
+sb.removeAllChannels();
+sb.channel('m').on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},e=>onMsg(e.new)).subscribe();
+S.load=false;render()}
+function onMsg(m){if(seen.has(m.id))return;seen.add(m.id);
+const k=m.room_id?'r:'+m.room_id:'d:'+(m.sender==S.me.id?m.to_user:m.sender);
+if(!m.room_id)S.convos[k.slice(2)]={t:m.content,at:m.created_at};
+if(S.blocked.includes(m.sender))return;
+if(m.sender==S.me.id){const t=S.msgs.find(x=>x.pend&&x.content==m.content&&x.k==k);if(t){t.id=m.id;t.pend=0;return}}
+if(k==S.view){S.msgs.push(m);addDom(m)}
+else if(m.to_user==S.me.id)toast('رسالة جديدة من '+nm(m.sender))}
+function addDom(m){const l=$('#ml');if(!l)return;if(l.querySelector('.empty'))l.innerHTML='';l.insertAdjacentHTML('beforeend',msgHtml(m,!!m.room_id));l.scrollTop=l.scrollHeight}
+const cq=k=>{const id=k.slice(2),me=S.me.id,q=sb.from('messages').select('*');return k[0]=='r'?q.eq('room_id',id):q.or(`and(sender.eq.${me},to_user.eq.${id}),and(sender.eq.${id},to_user.eq.${me})`)};
+async function openChat(k){S.view=k;S.msgs=[];S.loaded=null;render();
+const{data,error}=await cq(k).order('created_at',{ascending:false}).limit(100);if(error)return toast('تعذر تحميل الرسائل');
+S.msgs=data.reverse();S.msgs.forEach(m=>seen.add(m.id));if(S.view==k){S.loaded=k;render()}}
+async function send(){const i=$('#in'),t=i.value.trim();if(!t)return;const k=S.view;i.value='';
+const row=k[0]=='r'?{room_id:+k.slice(2),content:t}:{to_user:k.slice(2),content:t};
+const tmp={id:'t'+Date.now(),sender:S.me.id,content:t,k,pend:1,created_at:new Date().toISOString(),room_id:row.room_id||null,to_user:row.to_user||null};
+S.msgs.push(tmp);addDom(tmp);if(k[0]=='d')S.convos[k.slice(2)]={t,at:tmp.created_at};
+const{data,error}=await sb.from('messages').insert(row).select().single();
+if(error){S.msgs=S.msgs.filter(x=>x!==tmp);if(S.view==k){render();const n=$('#in');if(n)n.value=t}return toast('تعذر الإرسال')}
+if(!seen.has(data.id)){seen.add(data.id);tmp.id=data.id;tmp.pend=0}}
+async function shrink(f,m){const b=await createImageBitmap(f),k=Math.min(1,m/Math.max(b.width,b.height)),c=document.createElement('canvas');c.width=b.width*k;c.height=b.height*k;c.getContext('2d').drawImage(b,0,0,c.width,c.height);return new Promise(r=>c.toBlob(r,'image/jpeg',.85))}
+const mbtn=()=>S.isModel?'<button class="item" data-a="mpanel">🎥 لوحة البث</button>':S.mreq&&S.mreq.status=='pending'?'<div class="item">⏳ طلب «كوني موديلز» قيد المراجعة</div>':`<button class="item" data-a="mreq">✨ كوني موديلز</button>${S.mreq&&S.mreq.status=='rejected'?'<small style="color:#DC2626;display:block;margin:-4px 4px 8px">رُفض طلبك السابق'+(S.mreq.note?': '+esc(S.mreq.note):'')+'</small>':''}`;
+const mreqV=()=>`<div class="top"><button data-a="back">➜</button><b>كوني موديلز</b></div><div class="form"><p style="color:var(--m);line-height:1.8">البث المباشر للبالغين الموثّقين فقط. أدخل تاريخ ميلادك وصورة هويتك لتراجعها الإدارة. صورة الهوية للتحقق فقط ولا تظهر لأحد.</p>${S.me.avatar_url?'':'<div class="warn">أضف صورة شخصية أولًا من «تعديل ملفي»</div>'}<label>تاريخ الميلاد</label><input id="bd" type="date"><label>صورة الهوية (يظهر فيها تاريخ الميلاد)</label><button class="btn sm" data-a="pickid">اختيار صورة</button><input type="file" id="idf" accept="image/*" hidden><label class="chk"><input type="checkbox" id="mok"><span>أقرّ أن المعلومات صحيحة وأن عمري 18 سنة فأكثر</span></label><button class="btn" data-a="msend">إرسال الطلب</button></div>`;
+const mpanel=()=>{const s=S.stats;return`<div class="top"><button data-a="back">➜</button><b>لوحة البث</b></div><div class="form"><div class="card"><b>إحصائياتك</b><div style="color:var(--m);line-height:2">${s?`عدد البثوث: ${s.n}<br>إجمالي مدة البث: ${s.m} دقيقة`:'جارٍ التحميل…'}<br>أرباح الهدايا: 0 <small>(نظام الهدايا قادم)</small></div></div><label>عنوان البث</label><input id="lt" maxlength="60" placeholder="مثال: سهرة الجمعة"><button class="btn" data-a="golive">🔴 ابدأ البث</button></div>`};
+async function loadStats(){const{data}=await sb.from('lives').select('started_at,ended_at').eq('host',S.me.id);let m=0;(data||[]).forEach(l=>{if(l.ended_at)m+=(new Date(l.ended_at)-new Date(l.started_at))/60000});S.stats={n:(data||[]).length,m:Math.round(m)};if(S.view=='mpanel')render()}
+async function loadLives(){const{data,error}=await sb.from('lives').select('id,title,host').is('ended_at',null).gt('started_at',new Date(Date.now()-216e5).toISOString()).order('id',{ascending:false}).limit(50);if(error&&!S.lerr){S.lerr=1;toast('تعذر تحميل البثوث: '+String(error.message).slice(0,60))}const L=(data||[]).filter(l=>!S.blocked.includes(l.host)),ids=[...new Set(L.map(l=>l.host))];if(ids.length){const{data:ps}=await sb.from('profiles').select('id,name,avatar_url').in('id',ids),m={};(ps||[]).forEach(q=>m[q.id]=q);L.forEach(l=>l.profiles=m[l.host]||null)}S.lives=L}
+const liveV=()=>{const l=S.lv;return`<div class="vt"><button class="cx" data-a="lend">✕</button><span class="live">LIVE ●</span><span class="cnt" id="lvn">👥 ${l.n||1}</span><i style="flex:1"></i>${l.host?'':'<button class="cx" data-a="lrep">⚑</button>'}</div><div class="lvbox" id="lvv"></div><div class="aud"><b>${esc(l.title)}</b></div>${l.err?`<div class="warn" style="margin:0 12px 10px;direction:ltr;text-align:left;word-break:break-all">${esc(l.err)}</div>`:''}<div id="lc">${(l.chat||[]).map(m=>lcHtml(l,m)).join('')}</div><div class="send"><button class="dots" data-a="lheart">❤️</button><input id="lin" placeholder="اكتب تعليقًا..." maxlength="200" autocomplete="off"><button class="btn sm" data-a="lsend">إرسال</button></div>`};
+const lcHtml=(lv,m)=>`<div class="lm"${m.sender!=S.me.id?` data-a="menu" data-k="u:${esc(m.sender)}"`:''}><b>${esc(nm(m.sender)!='مستخدم'?nm(m.sender):(lv.pn&&lv.pn[m.sender])||'مستخدم')}:</b> ${esc(m.content)}</div>`;
+function onLive(lv,m){if(S.lv!==lv||!m||(lv.seen=lv.seen||new Set()).has(m.id))return;lv.seen.add(m.id);lv.last=Math.max(lv.last||0,m.id);if(S.blocked.includes(m.sender))return;
+(lv.chat=lv.chat||[]).push(m);if(lv.chat.length>100)lv.chat.shift();const c=$('#lc');if(c){c.insertAdjacentHTML('beforeend',lcHtml(lv,m));c.scrollTop=c.scrollHeight}}
+async function pollLive(lv){if(S.lv!==lv||document.hidden||lv.pl)return;lv.pl=1;try{const q=sb.from('live_messages').select('*').eq('live_id',lv.id);
+const{data}=lv.last?await q.gt('id',lv.last).order('id').limit(50):await q.order('id',{ascending:false}).limit(30);
+(lv.last?(data||[]):(data||[]).reverse()).forEach(m=>onLive(lv,m))}catch(e){}lv.pl=0}
+async function lsend(){const lv=S.lv,i=$('#lin');if(!lv||!i)return;const t=i.value.trim();if(!t)return;if(Date.now()-(lv.lt||0)<1000)return toast('انتظر قليلًا');lv.lt=Date.now();i.value='';
+const{data,error}=await sb.from('live_messages').insert({live_id:lv.id,content:t}).select().single();if(error){i.value=t;return toast('تعذر الإرسال')}onLive(lv,data)}
+async function startLive(t){await sb.from('lives').update({ended_at:new Date().toISOString()}).eq('host',S.me.id).is('ended_at',null);
+const{data,error}=await sb.from('lives').insert({title:t}).select().single();if(error)return toast('تعذر بدء البث');
+S.lv={id:data.id,host:true,title:t};S.view='live';render();liveJoin()}
+async function liveJoin(){const lv=S.lv;lv.n=1;
+const ch=sb.channel('lv'+lv.id,{config:{presence:{key:S.me.id}}});lv.ch=ch;lv.t=setInterval(async()=>{if(S.lv!==lv)return;const{data}=await sb.from('lives').select('ended_at').eq('id',lv.id).maybeSingle();if(data&&data.ended_at&&S.lv===lv){toast('انتهى البث');liveEnd()}},8000);
+ch.on('presence',{event:'sync'},()=>{if(S.lv==lv){const s=ch.presenceState();lv.n=Object.keys(s).length;lv.pn={};for(const k in s)lv.pn[k]=(s[k][0]||{}).n;const e=$('#lvn');if(e)e.textContent='👥 '+lv.n}}).on('postgres_changes',{event:'INSERT',schema:'public',table:'live_messages',filter:'live_id=eq.'+lv.id},e=>onLive(lv,e.new)).subscribe(async st=>{if(st=='SUBSCRIBED')await ch.track({n:S.me.name})});lv.p=setInterval(()=>pollLive(lv),3000);pollLive(lv);
+try{await loadZ();if(!window.ZegoExpressEngine)throw{code:'lib'};
+const{data,error}=await sb.functions.invoke(ZFN,{body:{live:lv.id}});if(error||!data||!data.token)throw{code:'token',message:await tokErr(error,data)};
+if(lv.host&&!data.host)throw{code:'denied'};
+const z=new ZegoExpressEngine(data.appId,'');lv.z=z;
+z.on('roomStreamUpdate',async(r,t,l)=>{if(S.lv!==lv||lv.host)return;if(t=='ADD'){for(const s of l){const rs=await z.startPlayingStream(s.streamID);z.createRemoteStreamView(rs).play('lvv',{enableAutoplayDialog:true});lv.sid=s.streamID}}else if(l.some(s=>s.streamID==lv.sid)){toast('انتهى البث');liveEnd()}});
+await z.loginRoom('live'+lv.id,data.token,{userID:S.me.id,userName:S.me.name},{userUpdate:true});
+if(lv.host){lv.ls=await z.createZegoStream({camera:{video:true,audio:true}});try{lv.ls.playVideo($('#lvv'),{mode:'fill'})}catch(e){}await z.startPublishingStream('l_'+lv.id,lv.ls)}}
+catch(e){if(S.lv==lv){lv.err=(String((e&&e.code)||'')+' '+String((e&&e.message)||(e&&e.code?'':e))).slice(0,90);render()}}}
+async function liveEnd(){const lv=S.lv;if(!lv)return;S.lv=null;clearInterval(lv.t);clearInterval(lv.p);
+try{if(lv.host)await sb.from('lives').update({ended_at:new Date().toISOString()}).eq('id',lv.id);if(lv.z){if(lv.host){lv.z.stopPublishingStream('l_'+lv.id);if(lv.ls)lv.z.destroyStream(lv.ls)}lv.z.logoutRoom('live'+lv.id);lv.z.destroyEngine()}if(lv.ch)sb.removeChannel(lv.ch)}catch(e){}
+S.view=lv.host?'mpanel':null;render();if(lv.host)loadStats()}
+async function loadZ(){if(window.ZegoExpressEngine)return;for(const u of['https://esm.sh/zego-express-engine-webrtc@3.11.0','https://cdn.jsdelivr.net/npm/zego-express-engine-webrtc@3.11.0/+esm']){try{const m=await import(u),E=m.ZegoExpressEngine||(m.default&&(m.default.ZegoExpressEngine||m.default));if(typeof E=='function'){window.ZegoExpressEngine=E;return}}catch(e){}}}
+const ZFN='rapid-handler';
+async function tokErr(e,d){try{const b=await e.context.json();return String(b.error||JSON.stringify(b))}catch(x){return String((e&&e.message)||(d&&d.error)||'')}}
+let zg=null,vc=null;
+const roomView=L=>`<div id="vs"></div><div id="ml" ${vc&&vc.hide?'style="display:none"':''}>${L.length?L.map(m=>msgHtml(m,true)).join(''):'<div class="empty">اكتب أول رسالة 👋</div>'}</div><div class="send"><button class="dots" data-a="heart">❤️</button><input id="in" placeholder="تعليق سريع..." maxlength="500" autocomplete="off"><button class="btn sm" data-a="send">إرسال</button></div>`;
+const pu=id=>(vc&&vc.pres[id])||pr(id);
+function paintV(){const e=$('#vs');if(!e||!vc)return;
+const sk=Object.keys(vc.seats),on=Object.keys(vc.pres);let c='';
+for(let i=0;i<4;i++){const id=sk[i];if(id){const p=pu(id),t=vc.talk[id];c+=`<button class="sc" data-a="${id==S.me.id?'seat':'noop'}">${av(p)}<span><b>${esc(p.name)}</b><small>${t?'يتحدث':'يستمع'}</small></span>${t?'<i class="gd"></i>':''}</button>`}else c+='<button class="sc em" data-a="seat">＋ مقعد فارغ</button>'}
+const au=on.filter(id=>!vc.seats[id]).slice(0,16).map(id=>av(pu(id))).join('');
+e.innerHTML=`<div class="vt"><button class="cx" data-a="back">✕</button>${vc.ok?'<span class="live">LIVE ●</span>':`<span class="cnt" style="font-size:11px;max-width:170px">${vc.err?'⚠ خطأ':'جارٍ الاتصال…'}</span>`}<span class="cnt">👥 ${on.length||1}</span><i style="flex:1"></i><button class="cx" data-a="mic">${vc.pub&&!vc.mute?'🎤':'🔇'}</button><button class="cx" data-a="hide">${vc.hide?'👁':'🙈'}</button><button class="cx" data-a="menu" data-k="r:${vc.id}">⋯</button></div>${vc.err?`<div class="warn" style="margin:0 12px 10px;word-break:break-all;direction:ltr;text-align:left">${esc(vc.err)}</div>`:''}<div class="seats">${c}</div><div class="aud">${au}</div>`}
+async function vJoin(id){vLeave();vc={id,seats:{},pres:{},talk:{},pub:0,mute:0,hide:0,ok:0};paintV();
+const ch=sb.channel('vr'+id,{config:{presence:{key:S.me.id}}});vc.ch=ch;
+ch.on('presence',{event:'sync'},()=>{const s=ch.presenceState(),o={};for(const k in s)o[k]=s[k][0];if(vc&&vc.ch==ch){vc.pres=o;paintV()}}).subscribe(async st=>{if(st=='SUBSCRIBED')await ch.track({name:S.me.name,avatar_url:S.me.avatar_url||null})});
+try{await loadZ();if(!window.ZegoExpressEngine)throw{code:'lib'};
+const{data,error}=await sb.functions.invoke(ZFN);if(error||!data||!data.token)throw{code:'token',message:await tokErr(error,data)};
+const z=new ZegoExpressEngine(data.appId,'');zg=z;
+z.on('roomStreamUpdate',async(r,t,l)=>{if(!vc)return;for(const s of l){const u=s.user.userID;if(t=='ADD'){if(u!=S.me.id){const rs=await z.startPlayingStream(s.streamID);z.createRemoteStreamView(rs).play('vaud',{enableAutoplayDialog:true})}vc.seats[u]=1}else{if(u!=S.me.id)z.stopPlayingStream(s.streamID);delete vc.seats[u]}}paintV()});
+try{z.setSoundLevelDelegate(true,400);z.on('soundLevelUpdate',l=>{if(!vc)return;vc.talk={};l.forEach(x=>{if(x.soundLevel>5)vc.talk[String(x.streamID).slice(2)]=1});paintV()})}catch(e){}
+await z.loginRoom('vr'+id,data.token,{userID:S.me.id,userName:S.me.name},{userUpdate:true});vc.ok=1;paintV()}
+catch(e){if(vc){vc.err=(String((e&&e.code)||'')+' '+String((e&&e.message)||(e&&e.code?'':e))).slice(0,80);paintV()}toast('تعذر تشغيل الصوت')}}
+async function vSeat(){if(!vc||!vc.ok)return toast('الصوت غير متصل');
+if(vc.pub){await vStop();return paintV()}
+if(Object.keys(vc.seats).length>=4)return toast('المقاعد ممتلئة');
+try{vc.ls=await zg.createZegoStream({camera:{video:false,audio:true}});await zg.startPublishingStream('s_'+S.me.id,vc.ls);vc.pub=1;vc.mute=0;vc.seats[S.me.id]=1;paintV()}catch(e){toast('تعذر تشغيل المايك، اسمح باستخدامه')}}
+async function vStop(){try{zg.stopPublishingStream('s_'+S.me.id);zg.destroyStream(vc.ls)}catch(e){}vc.pub=0;vc.ls=null;delete vc.seats[S.me.id]}
+function vMic(){if(!vc||!vc.pub)return vSeat();vc.mute=!vc.mute;try{vc.ls.stream.getAudioTracks().forEach(t=>t.enabled=!vc.mute)}catch(e){}paintV()}
+function vLeave(){if(!vc)return;const c=vc.ch;try{if(vc.pub)zg.stopPublishingStream('s_'+S.me.id);if(vc.ls)zg.destroyStream(vc.ls);zg.logoutRoom('vr'+vc.id);zg.destroyEngine()}catch(e){}try{if(c)sb.removeChannel(c)}catch(e){}zg=null;vc=null}
+let polling=0;
+async function poll(){const k=S.view;if(!sb||!S.me||!k||k=='legal'||S.loaded!=k||document.hidden||polling)return;polling=1;
+try{const ids=S.msgs.filter(x=>typeof x.id=='number').map(x=>x.id),last=ids.length?Math.max(...ids):0;
+const{data}=await cq(k).gt('id',last).order('id',{ascending:true}).limit(50);
+if(S.view==k)(data||[]).forEach(onMsg)}catch(e){}polling=0}
+setInterval(poll,3000);
+setInterval(async()=>{if(S.me&&S.tab=='live'&&!S.view&&!document.hidden){await loadLives();if(S.tab=='live'&&!S.view)render()}},5000);
+async function loadConvos(){const{data}=await sb.from('messages').select('sender,to_user,content,created_at').not('to_user','is',null).order('created_at',{ascending:false}).limit(200);
+S.convos={};(data||[]).forEach(m=>{const o=m.sender==S.me.id?m.to_user:m.sender;if(!S.convos[o])S.convos[o]={t:m.content,at:m.created_at}})}
+async function auth(up){if(!sb)return toast('أضف مفاتيح Supabase أولًا');
+const email=$('#em').value.trim(),password=$('#pw').value,name=$('#nm').value.trim();
+if(!email||password.length<6)return toast('اكتب البريد وكلمة مرور من 6 أحرف');
+if(up){if(name.length<2)return toast('اكتب اسمًا من حرفين على الأقل');if(!$('#age').checked)return toast('التطبيق لمن عمرهم 18 فأكثر');
+const{data,error}=await sb.auth.signUp({email,password,options:{data:{name}}});
+if(error)return toast(error.message);
+if(data.session)return boot();return toast('تحقق من بريدك لتأكيد الحساب ثم سجّل الدخول')}
+const{error}=await sb.auth.signInWithPassword({email,password});
+if(error)return toast('البريد أو كلمة المرور غير صحيحة');boot()}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-a]');if(!b)return;const d=b.dataset;
+switch(d.a){
+case'google':{if(!sb)return toast('أضف مفاتيح Supabase أولًا');if(!$('#age').checked)return toast('التطبيق لمن عمرهم 18 فأكثر');const{error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});if(error)toast('تعذر الدخول عبر Google');break}
+case'edit':S.draft=null;S.view='edit';render();break;
+case'pick':$('#af').click();break;
+case'save':{const name=$('#en').value.trim(),city=$('#ec').value.trim(),bio=$('#eb').value.trim();if(name.length<2)return toast('الاسم من حرفين على الأقل');const{data,error}=await sb.from('profiles').update({name,city,bio}).eq('id',S.me.id).select().single();if(error)return toast('تعذر الحفظ');S.me=data;S.draft=null;S.view=null;S.tab='me';toast('تم الحفظ');render();break}
+case'mreq':S.idf=null;S.view='mreq';render();break;
+case'pickid':$('#idf').click();break;
+case'msend':{const bd=$('#bd').value,f=S.idf;if(!S.me.avatar_url)return toast('أضف صورة شخصية أولًا');if(!bd)return toast('اكتب تاريخ ميلادك');if(!f)return toast('اختر صورة الهوية');if(!$('#mok').checked)return toast('أكّد الإقرار');
+if((Date.now()-new Date(bd))/31557600000<18)return toast('البث لمن عمره 18 فأكثر');
+try{const blob=await shrink(f,1280),path=S.me.id+'/id.jpg',up=await sb.storage.from('verify').upload(path,blob,{upsert:true,contentType:'image/jpeg'});if(up.error)throw up.error;
+const{data,error}=await sb.from('model_requests').insert({birth_date:bd,id_path:path}).select().single();if(error)throw error;S.mreq=data;S.idf=null;S.view=null;S.tab='me';toast('أُرسل طلبك للإدارة');render()}catch(e){toast('تعذر إرسال الطلب: '+String((e&&(e.message||e.error))||e).slice(0,80))}break}
+case'mpanel':S.view='mpanel';S.stats=null;render();loadStats();break;
+case'golive':{const t=$('#lt').value.trim();if(!t)return toast('اكتب عنوان البث');startLive(t);break}
+case'watch':{const l=S.lives.find(x=>x.id==d.id);S.lv={id:+d.id,host:false,title:l?l.title:''};S.view='live';render();liveJoin();break}
+case'lend':liveEnd();break;
+case'lsend':lsend();break;
+case'lheart':{const i=$('#lin');if(i){i.value='❤️';lsend()}break}
+case'lrep':sb.from('reports').insert({target:'l:'+S.lv.id}).then(()=>toast('وصلنا بلاغك'));break;
+case'login':auth(false);break;
+case'signup':auth(true);break;
+case'tab':S.tab=d.t;if(d.t=='msgs')await loadConvos();if(d.t=='live')await loadLives();render();break;
+case'open':openChat(d.k);if(d.k[0]=='r')vJoin(d.k.slice(2));break;
+case'seat':vSeat();break;
+case'mic':vMic();break;
+case'hide':if(vc){vc.hide=!vc.hide;const l=$('#ml');if(l)l.style.display=vc.hide?'none':'flex';paintV()}break;
+case'heart':$('#in').value='❤️';send();break;
+case'back':vLeave();S.view=null;if(S.tab=='msgs')await loadConvos();render();break;
+case'send':send();break;
+case'legal':S.view='legal';render();break;
+case'logout':vLeave();await liveEnd();await sb.auth.signOut();sb.removeAllChannels();S.me=null;S.view=null;render();break;
+case'del':if(confirm('سيتم حذف حسابك وكل بياناتك نهائيًا. متأكد؟')){try{await sb.storage.from('avatars').remove([S.me.id+'/avatar.jpg'])}catch(x){}const{error}=await sb.rpc('delete_me');if(error)return toast('تعذر الحذف');await sb.auth.signOut();S.me=null;S.view=null;render()}break;
+case'menu':{const id=d.k.slice(2),u=d.k[0]=='u',o=u?S.people.find(x=>x.id==id):S.rooms.find(x=>x.id==id);$('#sh').innerHTML=`<div class="bd" data-a="close"></div><div class="sh"><b>${esc(o?o.name:'')}</b><button data-a="report" data-k="${d.k}">إبلاغ عن مخالفة</button>${u?`<button data-a="block" data-k="${d.k}">حظر</button>`:''}<button data-a="close">إلغاء</button></div>`;break}
+case'report':$('#sh').innerHTML='';{const{error}=await sb.from('reports').insert({target:d.k});toast(error?'تعذر إرسال البلاغ':'وصلنا بلاغك وسنراجعه')}break;
+case'block':{$('#sh').innerHTML='';const id=d.k.slice(2),{error}=await sb.from('blocks').insert({blocked:id});if(error)return toast('تعذر الحظر');S.blocked.push(id);if(S.view=='d:'+id)S.view=null;toast('تم الحظر');render();break}
+case'close':$('#sh').innerHTML='';break}});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'){if(e.target.id=='in')send();if(e.target.id=='lin')lsend()}});
+async function upAvatar(f){if(!f)return;if(!/^image\//.test(f.type))return toast('اختر صورة');
+S.draft={name:$('#en').value,city:$('#ec').value,bio:$('#eb').value};
+try{const bm=await createImageBitmap(f),s=256,c=document.createElement('canvas');c.width=c.height=s;const m=Math.min(bm.width,bm.height);c.getContext('2d').drawImage(bm,(bm.width-m)/2,(bm.height-m)/2,m,m,0,0,s,s);
+const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',.85)),path=S.me.id+'/avatar.jpg';
+const up=await sb.storage.from('avatars').upload(path,blob,{upsert:true,contentType:'image/jpeg'});if(up.error)throw up.error;
+const url=sb.storage.from('avatars').getPublicUrl(path).data.publicUrl+'?v='+Date.now();
+const{data,error}=await sb.from('profiles').update({avatar_url:url}).eq('id',S.me.id).select().single();if(error)throw error;
+S.me=data;toast('تم تحديث الصورة');render()}catch(e){toast('تعذر رفع الصورة: '+String((e&&(e.message||e.error))||e).slice(0,80))}}
+document.addEventListener('change',e=>{if(e.target.id=='af')upAvatar(e.target.files[0]);if(e.target.id=='idf'){S.idf=e.target.files[0];const b=$('[data-a=pickid]');if(b&&S.idf)b.textContent='✔ تم اختيار الصورة'}});
+boot();
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
