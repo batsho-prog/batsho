@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7C3AED">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<title>Batsho</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+:root{--p:#7C3AED;--k:#22B8F5;--bg:#F8F7FF;--c:#fff;--t:#1F2937;--m:#6B7280;--l:#EDE9FE}
+@media(prefers-color-scheme:dark){:root{--bg:#14121f;--c:#1e1b30;--t:#f3f4f6;--m:#9CA3AF;--l:#2e2850}}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:Tajawal,system-ui,sans-serif;background:var(--bg);color:var(--t);font-size:15px}
+#app{height:100%;display:flex;flex-direction:column;max-width:560px;margin:auto;padding-top:env(safe-area-inset-top,0px)}
+button,input{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+header{padding:14px 18px 8px;display:flex;align-items:center;gap:10px}
+h1{font-size:24px;font-weight:800}
+main{flex:1;overflow-y:auto;padding:4px 14px 16px}
+nav{display:flex;background:var(--c);border-top:1px solid var(--l);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;padding:9px 0 7px;font-size:11px;color:var(--m);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button i{font-style:normal;font-size:20px}
+nav .on{color:var(--p);font-weight:700}
+.row{display:flex;align-items:center;gap:12px;background:var(--c);border-radius:16px;padding:12px;margin-bottom:10px;width:100%;text-align:start}
+.row .tx{flex:1;min-width:0}
+.row b{display:block}.row small{color:var(--m);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;flex:none}
+.btn{background:linear-gradient(135deg,var(--k),var(--p));color:#fff;border-radius:12px;padding:10px 18px;font-weight:700}
+.sm{padding:7px 14px;font-size:13px}
+.dots{padding:6px 10px;color:var(--m);font-size:20px}
+.tag{background:var(--l);color:var(--p);border-radius:20px;padding:2px 10px;font-size:12px}
+.empty{text-align:center;color:var(--m);padding:60px 20px;line-height:1.9}
+.login{margin:auto;padding:28px;text-align:center;display:flex;flex-direction:column;gap:14px;width:100%}
+.logo{width:96px;height:96px;margin:auto;border-radius:24px;display:block}
+.login input:not([type=checkbox]){background:var(--c);border-radius:12px;padding:13px;text-align:center;border:1px solid var(--l)}
+.chk{display:flex;gap:8px;text-align:start;font-size:13px;color:var(--m);align-items:flex-start}
+.chk input{margin-top:3px;accent-color:var(--p)}
+.top{display:flex;align-items:center;gap:8px;padding:10px 8px;background:var(--c);border-bottom:1px solid var(--l)}
+.top b{flex:1}.top button{padding:6px 10px;font-size:20px}
+#ml{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:78%;padding:9px 13px;border-radius:16px;background:var(--c);align-self:flex-end;border-end-end-radius:4px;line-height:1.6}
+.m small{display:block;color:var(--p);font-weight:700;font-size:12px}
+.m.me{background:var(--p);color:#fff;align-self:flex-start;border-end-end-radius:16px;border-end-start-radius:4px}
+.send{display:flex;gap:8px;padding:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--c);border-top:1px solid var(--l)}
+.send input{flex:1;background:var(--bg);border-radius:22px;padding:10px 16px;cursor:text}
+.card{background:var(--c);border-radius:16px;padding:16px;margin-bottom:12px;text-align:center}
+.card .av{margin:0 auto 8px;width:70px;height:70px;font-size:30px}
+.item{display:block;width:100%;text-align:start;background:var(--c);padding:14px;border-radius:14px;margin-bottom:8px}
+.item.red{color:#DC2626}
+.legal{padding:18px;line-height:2;overflow-y:auto;flex:1}
+#sh .bd{position:fixed;inset:0;background:#0006;z-index:5}
+#sh .sh{position:fixed;inset:auto 0 0;z-index:6;background:var(--c);border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;max-width:560px;margin:auto}
+#sh .sh button{padding:13px;border-radius:12px;background:var(--bg)}
+#tt{position:fixed;bottom:90px;inset-inline:0;margin:auto;width:max-content;max-width:86%;background:#111827;color:#fff;padding:10px 18px;border-radius:22px;z-index:9;opacity:0;transition:opacity .2s;pointer-events:none}
+#tt.on{opacity:1}
+.login .two{display:flex;gap:8px}.login .two button{flex:1}.login .alt{background:var(--l);color:var(--p)}.warn{background:#FEF3C7;color:#92400E;border-radius:12px;padding:10px;font-size:13px}.btn.g{background:#fff;color:#1F2937;border:1px solid var(--l);display:flex;align-items:center;justify-content:center;gap:10px;padding:13px}.login summary{color:var(--m);font-size:13px;cursor:pointer}.login details input,.login details .two{margin-top:10px;width:100%}img.av{object-fit:cover}a.item{text-decoration:none;color:inherit}.chk a{color:var(--p)}.form{padding:18px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}.form label{font-size:13px;color:var(--m)}.form input:not([hidden]){background:var(--c);border-radius:12px;padding:13px;border:1px solid var(--l);cursor:text;width:100%}
+/* ZEGOCLOUD Voice Room */
+#zego-root{width:100%;height:360px;background:var(--c);border-radius:0 0 16px 16px;overflow:hidden;position:relative}
+#zego-root > div{height:100% !important}
+.voice-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,var(--p),var(--k));color:#fff}
+.voice-bar b{flex:1}
+.voice-bar .live{width:8px;height:8px;background:#22C55E;border-radius:50%;box-shadow:0 0 0 4px #22C55E55;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #22C55E88}70%{box-shadow:0 0 0 8px #22C55E00}100%{box-shadow:0 0 0 0 #22C55E00}}
+.voice-actions{display:flex;gap:6px;padding:8px;background:var(--c);border-bottom:1px solid var(--l)}
+.voice-actions button{flex:1;padding:9px;border-radius:10px;background:var(--bg);font-size:13px;font-weight:600}
+.voice-actions .on{background:var(--p);color:#fff}
+.zego-warn{padding:12px;background:#FEF3C7;color:#92400E;text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+<div id="app"></div><div id="sh"></div><div id="tt"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://unpkg.com/zego-zim-web@2.5.0/index.js"></script>
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script>
+const SB_URL='https://whjyruxlcxgwivyuntub.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoanlydXhsY3hnd2l2eXVudHViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzODY3NDIsImV4cCI6MjEwODk2Mjc0Mn0.5Mb3qEyfQ5bIFwOl6YvltfSPjdpuKYtya9ENtkbD-6k';
+// ===== إعدادات ZEGOCLOUD - غيّرها من لوحة التحكم =====
+const ZEGO_APP_ID = 0; // مثال: 1234567890 - ضعه من https://console.zegocloud.com
+const ZEGO_SERVER_SECRET = 'YOUR_SERVER_SECRET'; // مثال: 'abcdef...'
+const ZEGO_ENABLED = ZEGO_APP_ID !== 0 && ZEGO_SERVER_SECRET !== 'YOUR_SERVER_SECRET' && window.ZegoUIKitPrebuilt;
+
+const ok=!SB_URL.includes('YOUR')&&window.supabase;
+const sb=ok?supabase.createClient(SB_URL,SB_KEY):null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const T={discover:'اكتشاف',rooms:'الغرف',msgs:'الرسائل',me:'ملفي'},IC={discover:'🔍',rooms:'🏠',msgs:'💬',me:'👤'};
+let S={me:null,tab:'discover',view:null,people:[],rooms:[],blocked:[],msgs:[],convos:{},load:true};
+const seen=new Set();
+const nm=id=>S.me&&id==S.me.id?S.me.name:(S.people.find(x=>x.id==id)||{name:'مستخدم'}).name;
+const av=p=>p.avatar_url?`<img class="av" src="${esc(p.avatar_url)}" alt="">`:`<span class="av" style="background:${['#7C3AED','#22B8F5','#6366F1','#14B8A6','#F59E0B'][p.name.charCodeAt(0)%5]}">${esc(p.name[0])}</span>`;
+const pr=id=>S.me&&id==S.me.id?S.me:S.people.find(x=>x.id==id)||{name:'مستخدم'};
+function toast(t){const e=$('#tt');e.textContent=t;e.className='on';setTimeout(()=>e.className='',2500)}
+const msgHtml=(m,room)=>`<div class="m ${m.sender==S.me.id?'me':''}">${room&&m.sender!=S.me.id?`<small>${esc(nm(m.sender))}</small>`:''}${esc(m.content)}</div>`;
+const login=()=>`<div class="login"><img class="logo" src="icon-192.png" alt="Batsho"><h1>أهلاً بك في Batsho</h1>${ok?'':'<div class="warn">'+(SB_URL.includes('YOUR')?'أضف رابط Supabase والمفتاح في أعلى ملف index.html':'تعذر تحميل مكتبة Supabase. تأكد من الإنترنت وأعد فتح الصفحة')+'</div>'}<label class="chk"><input type="checkbox" id="age"><span>عمري 18 سنة أو أكثر، وأوافق على <a href="terms.html" target="_blank">الشروط</a> و<a href="privacy.html" target="_blank">سياسة الخصوصية</a></span></label><button class="btn g" data-a="google"><b style="color:#4285F4;font-size:18px">G</b>المتابعة عبر Google</button><details><summary>الدخول بالبريد</summary><input type="text" id="nm" placeholder="اسمك المستعار (للحساب الجديد)" maxlength="20"><input type="email" id="em" placeholder="البريد الإلكتروني" dir="ltr"><input type="password" id="pw" placeholder="كلمة المرور (6 أحرف على الأقل)" dir="ltr"><div class="two"><button class="btn" data-a="login">دخول</button><button class="btn alt" data-a="signup">حساب جديد</button></div></details></div>`;
+const tabs={
+discover:()=>S.people.filter(p=>!S.blocked.includes(p.id)).map(p=>`<div class="row">${av(p)}<div class="tx"><b>${esc(p.name)}</b><small>${esc(p.city||'')} ${esc(p.bio||'')}</small></div><button class="btn sm" data-a="open" data-k="d:${p.id}">راسل</button><button class="dots" data-a="menu" data-k="u:${p.id}">⋮</button></div>`).join('')||'<div class="empty">ما فيه أحد غيرك بعد.<br>ادعُ أصدقاءك للانضمام!</div>',
+rooms:()=>S.rooms.map(r=>`<div class="row"><button class="row" style="margin:0;padding:0;background:none" data-a="open" data-k="r:${r.id}">${av(r)}<div class="tx"><b>${esc(r.name)}</b><small>🔊 غرفة صوتية • اضغط للدخول</small></div><span class="tag">${esc(r.tag||'مباشر')}</span></button><button class="dots" data-a="menu" data-k="r:${r.id}">⋮</button></div>`).join('')||'<div class="empty">لا يوجد غرف صوتية حالياً<br><br>سيتم إنشاء الغرف من لوحة Supabase - جدول rooms</div>',
+msgs:()=>{const k=Object.keys(S.convos).filter(id=>!S.blocked.includes(id)).sort((a,b)=>S.convos[b].at.localeCompare(S.convos[a].at));return k.length?k.map(id=>`<button class="row" data-a="open" data-k="d:${id}">${av(pr(id))}<div class="tx"><b>${esc(nm(id))}</b><small>${esc(S.convos[id].t)}</small></div></button>`).join(''):`<div class="empty">ما عندك محادثات بعد.<br><br><button class="btn sm" data-a="tab" data-t="discover">اكتشف الناس</button></div>`},
+me:()=>`<div class="card">${av(S.me)}<b style="font-size:18px">${esc(S.me.name)}</b><small style="display:block;color:var(--m)">${esc(S.me.city||'')} ${esc(S.me.bio||'حساب +18')}</small></div><button class="item" data-a="edit">تعديل ملفي</button><a class="item" href="privacy.html">سياسة الخصوصية</a><a class="item" href="terms.html">الشروط والأحكام</a><button class="item" data-a="logout">تسجيل الخروج</button><button class="item red" data-a="del">حذف حسابي وبياناتي</button>`};
+let zegoInstance=null;
+let zegoRoomId=null;
+function destroyZego(){try{if(zegoInstance){zegoInstance.destroy();}}catch(e){} zegoInstance=null; zegoRoomId=null;}
+
+function initZegoVoice(roomId){
+ if(!ZEGO_ENABLED){const el=$('#zego-root'); if(el) el.innerHTML='<div class="zego-warn">⚠️ فعل ZEGOCLOUD: ضع AppID و ServerSecret في أعلى index.html</div>'; return;}
+ const zegoRoom = 'batsho_room_'+roomId;
+ zegoRoomId = zegoRoom;
+ const userID = String(S.me.id);
+ const userName = S.me.name || 'مستخدم';
+ try{
+   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(ZEGO_APP_ID, ZEGO_SERVER_SECRET, zegoRoom, userID, userName);
+   const zp = ZegoUIKitPrebuilt.create(kitToken);
+   zegoInstance = zp;
+   zp.addPlugins({ZIM});
+   zp.joinRoom({
+     container: document.querySelector('#zego-root'),
+     scenario: { mode: ZegoUIKitPrebuilt.LiveAudioRoom, config: { role: ZegoUIKitPrebuilt.Audience } },
+     sharedLinks: [],
+     showPreJoinView: false,
+     showLeavingView: false,
+     showRoomTimer: true,
+     showUserList: true,
+     onUserJoin: (users)=>{console.log('Zego user join',users)},
+     onUserLeave: (users)=>{console.log('Zego user leave',users)},
+     onJoinRoom: ()=>{toast('انضممت للغرفة الصوتية')},
+     onLeaveRoom: ()=>{toast('غادرت الغرفة الصوتية')}
+   });
+ }catch(e){console.error(e); toast('تعذر تشغيل الغرفة الصوتية: '+e.message);}
+}
+
+function chat(k){const room=k[0]=='r',id=k.slice(2),o=room?S.rooms.find(x=>x.id==id):S.people.find(x=>x.id==id),n=o?o.name:'محادثة',L=S.msgs.filter(m=>!S.blocked.includes(m.sender));
+if(room){
+ return`<div class="top"><button data-a="back">➜</button><b>${esc(n)}</b><span style="display:flex;align-items:center;gap:6px"><span class="live" style="width:8px;height:8px;background:#22C55E;border-radius:50%;display:inline-block"></span><small style="color:#22C55E">مباشر</small></span><button data-a="menu" data-k="${room?'r':'u'}:${id}">⋮</button></div>
+ <div style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+   <div class="voice-bar"><span>🔊</span><b>الغرفة الصوتية</b><small id="voice-count"></small></div>
+   <div id="zego-root"></div>
+   <div class="voice-actions"><button data-a="mic">🎙️ مايك</button><button data-a="leave-voice">🚪 خروج صوتي</button></div>
+   <div id="ml" style="flex:1">${L.length?L.map(m=>msgHtml(m,room)).join(''):'<div class="empty">لا رسائل بعد - كن أول من يتكلم!</div>'}</div>
+   <div class="send"><input id="in" placeholder="اكتب رسالة تفاعلية..." maxlength="500" autocomplete="off"><button class="btn sm" data-a="send">إرسال</button></div>
+ </div>`;
+}
+return`<div class="top"><button data-a="back">➜</button><b>${esc(n)}</b><button data-a="menu" data-k="${room?'r':'u'}:${id}">⋮</button></div><div id="ml">${L.length?L.map(m=>msgHtml(m,room)).join(''):'<div class="empty">اكتب أول رسالة 👋</div>'}</div><div class="send"><input id="in" placeholder="اكتب رسالة..." maxlength="500" autocomplete="off"><button class="btn sm" data-a="send">إرسال</button></div>`}
+const legal=()=>`<div class="top"><button data-a="back">➜</button><b>الشروط والخصوصية</b></div><div class="legal"><p><b>ملاحظة:</b> نص مؤقت. ضع هنا الشروط وسياسة الخصوصية الفعلية، وانشرها أيضًا على رابط عام لأن Google Play يطلبه.</p></div>`;
+function edit(){const d=S.draft||S.me;return`<div class="top"><button data-a="back">➜</button><b>تعديل ملفي</b></div><div class="form"><div class="card">${av(S.me)}<button class="btn sm" data-a="pick">تغيير الصورة</button><input type="file" id="af" accept="image/*" hidden></div><label>الاسم المستعار</label><input id="en" maxlength="20" value="${esc(d.name||'')}"><label>المدينة</label><input id="ec" maxlength="30" value="${esc(d.city||'')}"><label>نبذة عنك</label><input id="eb" maxlength="120" value="${esc(d.bio||'')}"><button class="btn" data-a="save">حفظ</button></div>`}
+function render(){const a=$('#app');
+if(S.load){a.innerHTML='<div class="empty" style="margin:auto">جارٍ التحميل...</div>';return}
+if(!S.me){a.innerHTML=login();return}
+if(S.view){a.innerHTML=S.view=='legal'?legal():S.view=='edit'?edit():chat(S.view);const l=$('#ml');if(l)l.scrollTop=l.scrollHeight;return}
+a.innerHTML=`<header><h1>${T[S.tab]}</h1></header><main>${tabs[S.tab]()}</main><nav>${Object.keys(T).map(t=>`<button class="${t==S.tab?'on':''}" data-a="tab" data-t="${t}"><i>${IC[t]}</i>${T[t]}</button>`).join('')}</nav>`}
+async function boot(){if(!sb){S.load=false;return render()}
+const{data:{session}}=await sb.auth.getSession();
+if(!session){S.me=null;S.load=false;return render()}
+const u=session.user,um=u.user_metadata||{};let nn=String(um.name||um.full_name||'').trim().slice(0,20);if(nn.length<2)nn='مستخدم';let{data:p}=await sb.from('profiles').select('*').eq('id',u.id).maybeSingle();
+if(!p){const r=await sb.from('profiles').insert({id:u.id,name:nn}).select().single();p=r.data}
+if(!p){toast('تعذر تجهيز حسابك');await sb.auth.signOut();S.load=false;return render()}
+S.me=p;
+const[a,b,c]=await Promise.all([sb.from('profiles').select('*').neq('id',p.id).limit(100),sb.from('rooms').select('*').order('id'),sb.from('blocks').select('blocked')]);
+S.people=a.data||[];S.rooms=b.data||[];S.blocked=(c.data||[]).map(x=>x.blocked);
+sb.removeAllChannels();
+sb.channel('m').on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},e=>onMsg(e.new)).subscribe();
+S.load=false;render()}
+function onMsg(m){if(seen.has(m.id))return;seen.add(m.id);
+const k=m.room_id?'r:'+m.room_id:'d:'+(m.sender==S.me.id?m.to_user:m.sender);
+if(!m.room_id)S.convos[k.slice(2)]={t:m.content,at:m.created_at};
+if(S.blocked.includes(m.sender))return;
+if(m.sender==S.me.id){const t=S.msgs.find(x=>x.pend&&x.content==m.content&&x.k==k);if(t){t.id=m.id;t.pend=0;return}}
+if(k==S.view){S.msgs.push(m);addDom(m)}
+else if(m.to_user==S.me.id)toast('رسالة جديدة من '+nm(m.sender))}
+function addDom(m){const l=$('#ml');if(!l)return;if(l.querySelector('.empty'))l.innerHTML='';l.insertAdjacentHTML('beforeend',msgHtml(m,!!m.room_id));l.scrollTop=l.scrollHeight}
+const cq=k=>{const id=k.slice(2),me=S.me.id,q=sb.from('messages').select('*');return k[0]=='r'?q.eq('room_id',id):q.or(`and(sender.eq.${me},to_user.eq.${id}),and(sender.eq.${id},to_user.eq.${me})`)};
+async function openChat(k){destroyZego(); S.view=k;S.msgs=[];S.loaded=null;render();
+const{data,error}=await cq(k).order('created_at',{ascending:false}).limit(100);if(error)return toast('تعذر تحميل الرسائل');
+S.msgs=data.reverse();S.msgs.forEach(m=>seen.add(m.id));if(S.view==k){S.loaded=k;render();
+ if(k[0]=='r'){ setTimeout(()=>{initZegoVoice(k.slice(2))},300); }
+}}
+async function send(){const i=$('#in'),t=i.value.trim();if(!t)return;const k=S.view;i.value='';
+const row=k[0]=='r'?{room_id:+k.slice(2),content:t}:{to_user:k.slice(2),content:t};
+const tmp={id:'t'+Date.now(),sender:S.me.id,content:t,k,pend:1,created_at:new Date().toISOString(),room_id:row.room_id||null,to_user:row.to_user||null};
+S.msgs.push(tmp);addDom(tmp);if(k[0]=='d')S.convos[k.slice(2)]={t,at:tmp.created_at};
+const{data,error}=await sb.from('messages').insert(row).select().single();
+if(error){S.msgs=S.msgs.filter(x=>x!==tmp);if(S.view==k){render();const n=$('#in');if(n)n.value=t}return toast('تعذر الإرسال')}
+if(!seen.has(data.id)){seen.add(data.id);tmp.id=data.id;tmp.pend=0}}
+let polling=0;
+async function poll(){const k=S.view;if(!sb||!S.me||!k||k=='legal'||S.loaded!=k||document.hidden||polling)return;polling=1;
+try{const ids=S.msgs.filter(x=>typeof x.id=='number').map(x=>x.id),last=ids.length?Math.max(...ids):0;
+const{data}=await cq(k).gt('id',last).order('id',{ascending:true}).limit(50);
+if(S.view==k)(data||[]).forEach(onMsg)}catch(e){}polling=0}
+setInterval(poll,3000);
+async function loadConvos(){const{data}=await sb.from('messages').select('sender,to_user,content,created_at').not('to_user','is',null).order('created_at',{ascending:false}).limit(200);
+S.convos={};(data||[]).forEach(m=>{const o=m.sender==S.me.id?m.to_user:m.sender;if(!S.convos[o])S.convos[o]={t:m.content,at:m.created_at}})}
+async function auth(up){if(!sb)return toast('أضف مفاتيح Supabase أولًا');
+const email=$('#em').value.trim(),password=$('#pw').value,name=$('#nm').value.trim();
+if(!email||password.length<6)return toast('اكتب البريد وكلمة مرور من 6 أحرف');
+if(up){if(name.length<2)return toast('اكتب اسمًا من حرفين على الأقل');if(!$('#age').checked)return toast('التطبيق لمن عمرهم 18 فأكثر');
+const{data,error}=await sb.auth.signUp({email,password,options:{data:{name}}});
+if(error)return toast(error.message);
+if(data.session)return boot();return toast('تحقق من بريدك لتأكيد الحساب ثم سجّل الدخول')}
+const{error}=await sb.auth.signInWithPassword({email,password});
+if(error)return toast('البريد أو كلمة المرور غير صحيحة');boot()}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-a]');if(!b)return;const d=b.dataset;
+switch(d.a){
+case'google':{if(!sb)return toast('أضف مفاتيح Supabase أولًا');if(!$('#age').checked)return toast('التطبيق لمن عمرهم 18 فأكثر');const{error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});if(error)toast('تعذر الدخول عبر Google');break}
+case'edit':S.draft=null;S.view='edit';render();break;
+case'pick':$('#af').click();break;
+case'save':{const name=$('#en').value.trim(),city=$('#ec').value.trim(),bio=$('#eb').value.trim();if(name.length<2)return toast('الاسم من حرفين على الأقل');const{data,error}=await sb.from('profiles').update({name,city,bio}).eq('id',S.me.id).select().single();if(error)return toast('تعذر الحفظ');S.me=data;S.draft=null;S.view=null;S.tab='me';toast('تم الحفظ');render();break}
+case'login':auth(false);break;
+case'signup':auth(true);break;
+case'tab':S.tab=d.t;if(d.t=='msgs')await loadConvos();render();break;
+case'open':openChat(d.k);break;
+case'back':destroyZego(); S.view=null;if(S.tab=='msgs')await loadConvos();render();break;
+case'send':send();break;
+case'legal':S.view='legal';render();break;
+case'logout':await sb.auth.signOut();sb.removeAllChannels();S.me=null;S.view=null;render();break;
+case'del':if(confirm('سيتم حذف حسابك وكل بياناتك نهائيًا. متأكد؟')){try{await sb.storage.from('avatars').remove([S.me.id+'/avatar.jpg'])}catch(x){}const{error}=await sb.rpc('delete_me');if(error)return toast('تعذر الحذف');await sb.auth.signOut();S.me=null;S.view=null;render()}break;
+case'menu':{const id=d.k.slice(2),u=d.k[0]=='u',o=u?S.people.find(x=>x.id==id):S.rooms.find(x=>x.id==id);$('#sh').innerHTML=`<div class="bd" data-a="close"></div><div class="sh"><b>${esc(o?o.name:'')}</b><button data-a="report" data-k="${d.k}">إبلاغ عن مخالفة</button>${u?`<button data-a="block" data-k="${d.k}">حظر</button>`:''}<button data-a="close">إلغاء</button></div>`;break}
+case'report':$('#sh').innerHTML='';{const{error}=await sb.from('reports').insert({target:d.k});toast(error?'تعذر إرسال البلاغ':'وصلنا بلاغك وسنراجعه')}break;
+case'block':{$('#sh').innerHTML='';const id=d.k.slice(2),{error}=await sb.from('blocks').insert({blocked:id});if(error)return toast('تعذر الحظر');S.blocked.push(id);if(S.view=='d:'+id)S.view=null;toast('تم الحظر');render();break}
+case'close':$('#sh').innerHTML='';break}});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='in')send()});
+async function upAvatar(f){if(!f)return;if(!/^image\//.test(f.type))return toast('اختر صورة');
+S.draft={name:$('#en').value,city:$('#ec').value,bio:$('#eb').value};
+try{const bm=await createImageBitmap(f),s=256,c=document.createElement('canvas');c.width=c.height=s;const m=Math.min(bm.width,bm.height);c.getContext('2d').drawImage(bm,(bm.width-m)/2,(bm.height-m)/2,m,m,0,0,s,s);
+const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',.85)),path=S.me.id+'/avatar.jpg';
+const up=await sb.storage.from('avatars').upload(path,blob,{upsert:true,contentType:'image/jpeg'});if(up.error)throw up.error;
+const url=sb.storage.from('avatars').getPublicUrl(path).data.publicUrl+'?v='+Date.now();
+const{data,error}=await sb.from('profiles').update({avatar_url:url}).eq('id',S.me.id).select().single();if(error)throw error;
+S.me=data;toast('تم تحديث الصورة');render()}catch(e){toast('تعذر رفع الصورة')}}
+document.addEventListener('change',e=>{if(e.target.id=='af')upAvatar(e.target.files[0])});
+boot();
+try{if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}}catch(e){}
+</script>
+</body>
+</html>
