@@ -1,3 +1,4 @@
+
 {
   "appId": "com.batsho.app",
   "appName": "BATSHO",
@@ -6,6 +7,9 @@
     "androidScheme": "https"
   },
   "plugins": {
+    "App": {
+      "launchUrl": "com.batsho.app://login-callback"
+    },
     "SplashScreen": {
       "launchShowDuration": 2000,
       "backgroundColor": "#7C3AED"
