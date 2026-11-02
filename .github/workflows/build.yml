@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # تم إزالة cache: 'npm' لأنه يحتاج package-lock.json وهو غير موجود عندك
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -27,52 +27,36 @@ jobs:
           java-version: 17
 
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm install
 
       - name: Prepare web files
         run: |
           mkdir -p www
-          # Copy only if files exist - prevents workflow failure
-          for f in index.html manifest.json sw.js zego.js privacy.html terms.html icon-192.png icon-512.png icon-maskable-192.png; do
+          for f in index.html manifest.json sw.js zego.js privacy.html terms.html icon-192.png icon-512.png icon-maskable-192.png icon-maskable-512.png; do
             if [ -f "$f" ]; then
               cp "$f" www/
             else
-              echo "Warning: $f not found, skipping"
+              echo "تحذير: $f غير موجود"
             fi
           done
           ls -la www/
 
-      - name: Add Android platform (if needed)
+      - name: Add Android platform if needed
         run: |
           if [ ! -d "android" ]; then
             npx cap add android
           else
-            echo "Android platform already exists, skipping add"
+            echo "Android موجود مسبقاً"
           fi
 
       - name: Sync Android
         run: npx cap sync android
 
-      - name: Cache Gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       - name: Build Debug APK
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
