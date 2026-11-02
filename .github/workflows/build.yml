@@ -1,3 +1,4 @@
+
 name: BATSHO Android APK
 
 on:
@@ -18,6 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -30,16 +32,10 @@ jobs:
 
       - name: Prepare web files
         run: |
+          rm -rf www
           mkdir -p www
-          cp index.html www/index.html
-          cp manifest.json www/manifest.json
-          cp sw.js www/sw.js
-          cp zego.js www/zego.js
-          cp privacy.html www/privacy.html
-          cp terms.html www/terms.html
-          cp icon-192.png www/icon-192.png
-          cp icon-512.png www/icon-512.png
-          cp icon-maskable-192.png www/icon-maskable-192.png
+          cp index.html manifest.json sw.js zego.js privacy.html terms.html www/
+          cp icon-192.png icon-512.png icon-maskable-192.png www/
 
       - name: Add Android
         run: npx cap add android
