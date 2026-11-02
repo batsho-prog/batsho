@@ -1,0 +1,14 @@
+{
+  "appId": "com.batsho.app",
+  "appName": "BATSHO",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#7C3AED"
+    }
+  }
+}
