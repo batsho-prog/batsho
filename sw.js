@@ -1,4 +1,4 @@
-const C='batsho-v6',SHELL=['./','index.html','manifest.json','icon-192.png','icon-512.png','supabase.js'];
+const C='batsho-v7',SHELL=['./','index.html','manifest.json','icon-192.png','icon-512.png','supabase.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>Promise.all(SHELL.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
 // cache first, refresh in the background: slow or blocked networks no longer delay page loads
