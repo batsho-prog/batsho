@@ -1,0 +1,9 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.batsho.twa",
+        "sha256_cert_fingerprints": ["57:E8:40:83:79:DD:8B:7B:38:44:34:0B:0A:B3:5B:55:F5:62:B1:BD:DC:F2:D6:33:FB:F2:AC:E9:C4:02:57:65"]
+      }
+    }]
+
