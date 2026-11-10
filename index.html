@@ -505,7 +505,7 @@ async function admAct(id,ok){
   const{error}=await sb.rpc(ok?'approve_order':'reject_order',{p_order:id});
   if(error)return toast('تعذر التنفيذ');
   toast(ok?'تمت إضافة العملات ✅':'تم الرفض');loadAdm()}
-const VAPID_PUBLIC='BJsSBMu_WY6o0YpLdbOsZfwsKCFX_boNPga5AVwkH0hGTTBTnAyOkUIPQoOZzX7VaHlVWkicvhU2lHrZUbK0B8A';
+const VAPID_PUBLIC='BN2O5VislM4HN7dBknskYjuoZ7Bo8SFM3UjnXVMJwR6gGgPzXr79IxcN35BclseIMcHZhOQvAJP_sZ4KZWi61Po';
 const b64u=s=>{const b=atob((s+'='.repeat((4-s.length%4)%4)).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))};
 const pushOk=()=>'serviceWorker'in navigator&&'PushManager'in window&&'Notification'in window;
 async function pushRefresh(){
